@@ -1,5 +1,5 @@
 {
-  "name": "koa-mongodb-server",
+  "name": "beeShopAPI",
   "version": "1.0.0",
   "description": "利用node+koa+mongoose搭建的后台服务，提供restful接口api",
   "main": "app.js",
