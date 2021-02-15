@@ -21,9 +21,10 @@ module.exports = function(){
 
   //login
   //一键登录
-  router.post('/login/singlesign',Login.singlesign)
+  router.post('/login/singlesign',Login.getPhoneNumber,Login.singlesign)
   //验证码登录
   router.post('/login/sign',Login.sign)
 
   return router
 }
+
