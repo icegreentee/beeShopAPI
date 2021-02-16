@@ -9,7 +9,7 @@ import userHelper from '../dbhelper/userHelper'
 
 exports.getPhoneNumber = async (ctx, next) => {
   let loginToken = ctx.request.body.loginToken;
-  console.log("loginToken:"+loginToken )
+  console.log("loginToken:" + loginToken)
   let res = await koaRequest({
     url: url,
     method: "POST",
@@ -74,5 +74,15 @@ exports.sign = async (ctx, next) => {
     code: 2000,
     msg: "登陆成功",
     data: res
+  }
+}
+
+exports.info = async (ctx, next) => {
+  let data = ctx.request.body;
+  console.log(data)
+  await userHelper.updateByPhoneNumber(data);
+  ctx.body={
+    code: 2000,
+    msg: "信息添加成功",
   }
 }

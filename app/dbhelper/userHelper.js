@@ -29,6 +29,21 @@ exports.addUser = async (data) => {
 	return user
 }
 
+exports.updateByPhoneNumber = async (data) => {
+	let res = User.updateOne(
+		{ "phoneNumber": data.phoneNumber },
+		{
+			$set: {
+				"name": data.name,
+				"school": data.school,
+				"qq": data.qq,
+				"weixin": data.weixin,
+				"avatar": "http://q1.qlogo.cn/g?b=qq&nk=" + data.qq + "&s=640",
+			}
+		})
+	return res;
+}
+
 // /**
 //  * 查找所用用户
 //  * @return {[type]} [description]
