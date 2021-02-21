@@ -49,13 +49,14 @@ const Koa = require('koa')
 const logger = require('koa-logger')
 const session = require('koa-session')
 const bodyParser = require('koa-bodyparser')
+const KoaStatic = require('koa-static');
 const app = new Koa()
 
 app.keys = ['ababab']
 app.use(logger())
 app.use(session(app))
 app.use(bodyParser())
-
+app.use(KoaStatic(__dirname +'/public'));
 
 /**
  * 使用路由转发请求

@@ -1,9 +1,9 @@
 'use strict'
 
 const Router = require('koa-router')
-const User = require('../app/controllers/user')
-const App = require('../app/controllers/app')
+const Upload = require("./upload")()
 const Login = require('../app/controllers/login')
+const Goods = require('../app/controllers/goods')
 
 module.exports = function(){
 	var router = new Router({
@@ -27,6 +27,10 @@ module.exports = function(){
   // 引导页信息采集
   router.post("/login/info",Login.info)
 
+  // 上传图片
+  router.post("/upload/goodsimage",Upload.single('files'),Goods.uploadGoodsImage)
+  router.post("/goods/submit",Goods.goodsSubmit)
+  
   return router
 }
 
