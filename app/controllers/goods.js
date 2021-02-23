@@ -1,7 +1,7 @@
 'use strict'
 
 import goodsHelper from '../dbhelper/goodsHelper'
-
+import userHelper from '../dbhelper/userHelper'
 
 
 exports.uploadGoodsImage = async (ctx, next) => {
@@ -37,11 +37,24 @@ exports.goodsSubmit = async (ctx, next) => {
 exports.getGoods = async (ctx, next) => {
   let page = parseInt(ctx.request.body.page)
   let school = ctx.request.body.school
-  let res = await goodsHelper.getGoodsSortByupdatetime(school,page);
-  console.log(res)
-  ctx.body = res;
-  // ctx.body = {
-  //   code: 2000,
-  //   msg: "ok",
-  // }
+  let goods = await goodsHelper.getGoodsSortByupdatetime(school, page);
+  let res = [];
+  for (let i = 0; i < goods.length; i++) {
+    let id = goods[i].id
+    let content = goods[i].content
+    let image = goods[i].images.split("|")[0];
+    let price = goods[i].price
+    let updatetime = goods[i].updatetime
+
+    let user = await userHelper.findByPhoneNumber({ phoneNumber: goods[i].userPhoneNumber })
+    let userava = user.avatar
+    let username = user.name
+
+    let good = {
+      id, content, image, price, updatetime, userava, username
+    }
+    res.push(good)
+  }
+
+  ctx.body = res
 }
