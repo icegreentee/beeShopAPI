@@ -16,20 +16,26 @@ var GoodsSchema = new Schema({
     type: String
   },
   content: String,
-  time: {
+  createtime: {
+    type: Date,
+    dafault: Date.now()
+  },
+  updatetime: {
     type: Date,
     dafault: Date.now()
   },
   images: String,
   userPhoneNumber: String,
   school:String,
-  class:String,
-  price:String
+  goodsclass:String,
+  price:String,
+  onsale:{type:Boolean,default:true},
+  finishsale:{type:Boolean,default:false}
 })
 
 // Defines a pre hook for the document.
 GoodsSchema.pre('save', function(next) {
-  this.time = Date.now();
+  this.updatetime = Date.now();
   next()
 })
 

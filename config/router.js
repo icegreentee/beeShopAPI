@@ -31,6 +31,8 @@ module.exports = function(){
   router.post("/upload/goodsimage",Upload.single('files'),Goods.uploadGoodsImage)
   router.post("/goods/submit",Goods.goodsSubmit)
   
+  //home
+  router.post("/goods/getgoods",Goods.getGoods)
   return router
 }
 
