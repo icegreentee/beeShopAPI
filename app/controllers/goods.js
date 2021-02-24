@@ -58,3 +58,32 @@ exports.getGoods = async (ctx, next) => {
 
   ctx.body = res
 }
+
+//根据传达的关键词进行查找类已经模糊查找内容
+exports.searchGoods = async (ctx, next) => {
+  console.log(ctx.request.body)
+  let word = ctx.request.body.word
+  let page = parseInt(ctx.request.body.page)
+  let school = ctx.request.body.school
+  let goods = await goodsHelper.getGoodsSortByupdatetimeAndword(school, page, word);
+  
+  let res = [];
+  for (let i = 0; i < goods.length; i++) {
+    let id = goods[i].id
+    let content = goods[i].content
+    let image = goods[i].images.split("|")[0];
+    let price = goods[i].price
+    let updatetime = goods[i].updatetime
+
+    let user = await userHelper.findByPhoneNumber({ phoneNumber: goods[i].userPhoneNumber })
+    let userava = user.avatar
+    let username = user.name
+
+    let good = {
+      id, content, image, price, updatetime, userava, username
+    }
+    res.push(good)
+  }
+
+  ctx.body = res
+}

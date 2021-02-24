@@ -33,6 +33,9 @@ module.exports = function(){
   
   //home
   router.post("/goods/getgoods",Goods.getGoods)
+  //search
+  router.post("/goods/searchgoods",Goods.searchGoods)
+  
   return router
 }
 
