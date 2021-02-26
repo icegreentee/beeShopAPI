@@ -56,7 +56,7 @@ exports.singlesign = async (ctx, next) => {
 
 
 exports.sign = async (ctx, next) => {
-  let phoneNumber = "18868180042";
+  let phoneNumber = ctx.request.body.phoneNumber;
   console.log(phoneNumber)
   let res = await userHelper.findByPhoneNumber({ phoneNumber })
   console.log(res)
