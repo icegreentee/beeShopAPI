@@ -4,9 +4,10 @@ const Router = require('koa-router')
 const Upload = require("./upload")()
 const Login = require('../app/controllers/login')
 const Goods = require('../app/controllers/goods')
+const Sale = require('../app/controllers/sale')
 
-module.exports = function(){
-	var router = new Router({
+module.exports = function () {
+  var router = new Router({
     prefix: '/api'
   })
 
@@ -21,21 +22,25 @@ module.exports = function(){
 
   //login
   //一键登录
-  router.post('/login/singlesign',Login.getPhoneNumber,Login.singlesign)
+  router.post('/login/singlesign', Login.getPhoneNumber, Login.singlesign)
   //验证码登录
-  router.post('/login/sign',Login.sign)
+  router.post('/login/sign', Login.sign)
   // 引导页信息采集
-  router.post("/login/info",Login.info)
+  router.post("/login/info", Login.info)
 
   // 上传图片
-  router.post("/upload/goodsimage",Upload.single('files'),Goods.uploadGoodsImage)
-  router.post("/goods/submit",Goods.goodsSubmit)
-  
+  router.post("/upload/goodsimage", Upload.single('files'), Goods.uploadGoodsImage)
+  router.post("/goods/submit", Goods.goodsSubmit)
+
   //home
-  router.post("/goods/getgoods",Goods.getGoods)
+  router.post("/goods/getgoods", Goods.getGoods)
   //search
-  router.post("/goods/searchgoods",Goods.searchGoods)
-  
+  router.post("/goods/searchgoods", Goods.searchGoods)
+  //getgoodsinfo
+  router.post("/goods/getgoodsinfo", Goods.getGoodsInfo)
+  //sale
+  router.post("/sale/buygoods", Sale.buygoods)
+  router.post("/sale/getgoods", Sale.getgoods)
   return router
 }
 

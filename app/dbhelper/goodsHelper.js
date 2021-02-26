@@ -36,3 +36,16 @@ exports.getGoodsSortByupdatetimeAndword = async (school, page,word) => {
 	})
 	return res
 }
+
+exports.getOneGoodsById = async (id) => {
+	let query = Goods.findOne({ id })
+	let res = null
+	await query.exec(function (err, goods) {
+		if (err) {
+			res = {}
+		} else {
+			res = goods
+		}
+	})
+	return res
+}
