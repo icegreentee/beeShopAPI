@@ -105,3 +105,21 @@ exports.getGoodsInfo = async (ctx, next) => {
 
   ctx.body = res
 }
+
+
+exports.getsalegoods = async (ctx, next) => {
+  let phoneNumber= ctx.request.body.phoneNumber;
+
+  let res = await goodsHelper.getSaleGoodsByphone(phoneNumber)
+  ctx.body = res
+}
+
+exports.deletesalegoods = async (ctx, next) => {
+  let id= ctx.request.body.id;
+
+  await goodsHelper.deleteGoodsByid(id)
+  ctx.body = {
+    code: 2000,
+    msg: "删除成功",
+  }
+}

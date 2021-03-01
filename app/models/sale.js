@@ -16,7 +16,6 @@ var SaleSchema = new Schema({
     type: String
   },
   goodsid: String,
-  salephone:String,
   buyphone:String,
   buytime: {
     type: Date,
@@ -24,21 +23,13 @@ var SaleSchema = new Schema({
   },
   accept:{
     type: String,
-    dafault:"false"
+    dafault:""
   },
   accepttime: {
     type: Date,
     dafault: null
   },
   finish:{
-    type: String,
-    dafault:"false"
-  },
-  finishtime: {
-    type: Date,
-    dafault: null
-  },
-  result:{
     type: String,
     dafault:""
   }

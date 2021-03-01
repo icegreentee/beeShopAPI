@@ -18,7 +18,10 @@ var UserSchema = new Schema({
   name: String,
   school: String,
   qq: String,
-  weixin: String,
+  weixin: {
+    type: String,
+    default: ""
+  },
   avatar: {
     type: String,
     default: "http://static.hdslb.com/images/akari.jpg"

@@ -11,8 +11,8 @@ exports.addSale = async (data) => {
 	return sale
 }
 
-exports.getSales = async (phoneNumber) => {
-	let query = Sale.find({ salephone: phoneNumber }).sort({ updatetime: -1 })
+exports.getSaleBygoodsId = async (id) => {
+	let query = Sale.findOne({ goodsid: id, finish: "" })
 	let res = null
 	await query.exec(function (err, sale) {
 		if (err) {
@@ -22,4 +22,24 @@ exports.getSales = async (phoneNumber) => {
 		}
 	})
 	return res
+}
+
+exports.changeacceptgoods = async (id, accept, finish) => {
+	await Sale.update({ id }, { $set: { "accept": accept, "finish": finish } })
+}
+exports.getSaleById = async (id) => {
+	let query = Sale.findOne({ id: id })
+	let res = null
+	await query.exec(function (err, sale) {
+		if (err) {
+			res = {}
+		} else {
+			res = sale
+		}
+	})
+	return res
+}
+
+exports.changefinish = async (id, finish) => {
+	await Sale.update({ id }, { $set: { "finish": finish } })
 }

@@ -30,6 +30,7 @@ var GoodsSchema = new Schema({
   goodsclass:String,
   price:String,
   onsale:{type:Boolean,default:true},
+  finishsale:{type:Boolean,default:false},
 })
 
 // Defines a pre hook for the document.

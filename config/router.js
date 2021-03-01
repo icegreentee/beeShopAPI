@@ -40,7 +40,22 @@ module.exports = function () {
   router.post("/goods/getgoodsinfo", Goods.getGoodsInfo)
   //sale
   router.post("/sale/buygoods", Sale.buygoods)
-  router.post("/sale/getgoods", Sale.getgoods)
+  //salegoods
+  router.post("/sale/getsalegoods", Goods.getsalegoods)
+  router.post("/sale/deletesalegoods", Goods.deletesalegoods)
+
+  //info
+  router.post("/info/getsalegoodsinfo", Sale.getsalegoodsinfo)
+  router.post("/info/accept", Sale.accept)
+  router.post("/info/noaccept", Sale.noaccept)
+  router.post("/info/accept", Sale.accept)
+  router.post("/info/noaccept", Sale.noaccept)
+  router.post("/info/finishsale", Sale.finishsale)
+  router.post("/info/nofinishsale", Sale.nofinishsale)
+  //
+  router.post("/person/getmybuy", Sale.getmybuy)
+  router.post("/person/getmysale", Sale.getmysale)
+
   return router
 }
 
