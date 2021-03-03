@@ -22,7 +22,7 @@ module.exports = function () {
 
   //login
   //一键登录
-  router.post('/login/singlesign', Login.getPhoneNumber, Login.singlesign)
+  router.post('/login/singlesign',  Login.singlesign)
   //验证码登录
   router.post('/login/sign', Login.sign)
   // 引导页信息采集

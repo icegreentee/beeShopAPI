@@ -7,10 +7,10 @@ var Authorization = "Basic NjJjOGNjMTRmY2JlOWI3YzkyOTY1ZTQxOjkyNTc0M2FmMjU3ZGM2M
 
 import userHelper from '../dbhelper/userHelper'
 
-exports.getPhoneNumber = async (ctx, next) => {
+exports.singlesign = async (ctx, next) => {
   let loginToken = ctx.request.body.loginToken;
   console.log("loginToken:" + loginToken)
-  let res = await koaRequest({
+  let phoneres = await koaRequest({
     url: url,
     method: "POST",
     json: true,
@@ -20,14 +20,10 @@ exports.getPhoneNumber = async (ctx, next) => {
     },
     body: { loginToken: loginToken }
   })
-  ctx.request.body.requestRes = res.body;
-  console.log(ctx.request.body.requestRes)
-  next();
-}
-exports.singlesign = async (ctx, next) => {
-  if (ctx.request.body.requestRes.code == 8000) {
-    let phoneNumber = RSA.decrypt(ctx.request.body.requestRes.phone)
-    console.log(phoneNumber)
+  console.log(phoneres.body)
+  if (phoneres.body.code == 8000) {
+    let phoneNumber = RSA.decrypt(phoneres.body.phone)
+    // console.log(phoneNumber)
     let res = await userHelper.findByPhoneNumber({ phoneNumber })
     if (!res) {
       res = {
@@ -39,7 +35,7 @@ exports.singlesign = async (ctx, next) => {
       }
       await userHelper.addUser(res)
     }
-    console.log(res.phoneNumber)
+    console.log(res)
     ctx.body = {
       code: 2000,
       msg: "登陆成功",
@@ -48,7 +44,7 @@ exports.singlesign = async (ctx, next) => {
   } else {
     ctx.body = {
       code: 4000,
-      msg: ctx.request.body.requestRes.content
+      msg: phoneres.body.content
     }
   }
 
@@ -81,7 +77,7 @@ exports.info = async (ctx, next) => {
   let data = ctx.request.body;
   console.log(data)
   await userHelper.updateByPhoneNumber(data);
-  ctx.body={
+  ctx.body = {
     code: 2000,
     msg: "信息添加成功",
   }
