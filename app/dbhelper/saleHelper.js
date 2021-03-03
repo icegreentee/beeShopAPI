@@ -43,3 +43,29 @@ exports.getSaleById = async (id) => {
 exports.changefinish = async (id, finish) => {
 	await Sale.update({ id }, { $set: { "finish": finish } })
 }
+
+exports.getSalesByPhone = async (phoneNumber) => {
+	let query = Sale.find({ buyphone: phoneNumber,finish:{$ne:""} })
+	let res = null
+	await query.exec(function (err, sale) {
+		if (err) {
+			res = {}
+		} else {
+			res = sale
+		}
+	})
+	return res
+}
+
+exports.getSalesByGoodId = async (goodsid) => {
+	let query = Sale.findOne({ goodsid,finish:"2" })
+	let res = null
+	await query.exec(function (err, sale) {
+		if (err) {
+			res = {}
+		} else {
+			res = sale
+		}
+	})
+	return res
+}

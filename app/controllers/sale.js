@@ -105,25 +105,35 @@ exports.nofinishsale = async (ctx, next) => {
 }
 
 exports.getmybuy = async (ctx, next) => {
-  let id = ctx.request.body.id;
-  await saleHelper.changefinish(id, "2")
-  let goods = await saleHelper.getSaleById(id)
-  await goodsHelper.changefinishsale(goods.goodsid, true)
-  ctx.body = {
-    code: 2000,
-    msg: "ok",
+  let phoneNumber = ctx.request.body.phoneNumber;
+  let sales = await saleHelper.getSalesByPhone(phoneNumber);
+  let res = []
+  for (let i = 0; i < sales.length; i++) {
+    let goods = await goodsHelper.getOneGoodsById(sales[i].goodsid)
+    let one = {
+      "image":goods.images.split("|")[0],
+      "goodsname": goods.content,
+      "price":goods.price,
+      "buytime":sales[i].buytime,
+      "finish":sales[i].finish,
+    }
+    res.push(one)
   }
+  ctx.body = res
 }
 exports.getmysale = async (ctx, next) => {
-  let id = ctx.request.body.id;
-  // console.log(id )
-  await saleHelper.changefinish(id, "1")
-  let goods = await saleHelper.getSaleById(id)
-  // console.log(goods )
-  await goodsHelper.changeonsale(goods.goodsid, true);
-
-  ctx.body = {
-    code: 2000,
-    msg: "ok",
+  let phoneNumber = ctx.request.body.phoneNumber;
+  let goods = await goodsHelper.getSaleGoodsByphoneFinish(phoneNumber)
+  let res = []
+  for (let i = 0; i < goods.length; i++) {
+    let sale = await saleHelper.getSalesByGoodId(goods[i].id)
+    let one = {
+      "image":goods[i].images.split("|")[0],
+      "goodsname": goods[i].content,
+      "price":goods[i].price,
+      "buytime":sale.buytime,
+    }
+    res.push(one)
   }
+  ctx.body = res
 }

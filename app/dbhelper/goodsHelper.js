@@ -96,3 +96,16 @@ exports.getNotSaleGoodsByphone = async (phoneNumber) => {
 exports.changefinishsale = async (id,finishsale) => {
 	await Goods.update({id}, {$set:{"finishsale":finishsale}})
 }
+
+exports.getSaleGoodsByphoneFinish = async (phoneNumber) => {
+	let query = Goods.find({ userPhoneNumber:phoneNumber,finishsale:true })
+	let res = null
+	await query.exec(function (err, goods) {
+		if (err) {
+			res = {}
+		} else {
+			res = goods
+		}
+	})
+	return res
+}
