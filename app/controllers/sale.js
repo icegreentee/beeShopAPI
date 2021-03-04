@@ -137,3 +137,20 @@ exports.getmysale = async (ctx, next) => {
   }
   ctx.body = res
 }
+
+exports.getmysaleclass = async (ctx, next) => {
+  let phoneNumber = ctx.request.body.phoneNumber;
+  let goods = await goodsHelper.getSaleGoodsByphoneFinish(phoneNumber)
+  let res = []
+  for (let i = 0; i < goods.length; i++) {
+    let sale = await saleHelper.getSalesByGoodId(goods[i].id)
+    let one = {
+      "goodsname": goods[i].content,
+      "price":goods[i].price,
+      "buytime":sale.buytime,
+      "goodsclass":goods[i].goodsclass,
+    }
+    res.push(one)
+  }
+  ctx.body = res
+}

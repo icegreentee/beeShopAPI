@@ -43,7 +43,7 @@ module.exports = function () {
   //salegoods
   router.post("/sale/getsalegoods", Goods.getsalegoods)
   router.post("/sale/deletesalegoods", Goods.deletesalegoods)
-
+  
   //info
   router.post("/info/getsalegoodsinfo", Sale.getsalegoodsinfo)
   router.post("/info/accept", Sale.accept)
@@ -55,6 +55,7 @@ module.exports = function () {
   //
   router.post("/person/getmybuy", Sale.getmybuy)
   router.post("/person/getmysale", Sale.getmysale)
+  router.post("/person/getmysaleclass", Sale.getmysaleclass)
 
   return router
 }
