@@ -82,3 +82,10 @@ exports.info = async (ctx, next) => {
     msg: "信息添加成功",
   }
 }
+
+exports.test = async (ctx, next) => {
+  ctx.body = {
+    code: 2000,
+    msg: "ok",
+  }
+}

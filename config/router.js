@@ -27,6 +27,8 @@ module.exports = function () {
   router.post('/login/sign', Login.sign)
   // 引导页信息采集
   router.post("/login/info", Login.info)
+  // 引导页信息采集
+  router.get("/test", Login.test)
 
   // 上传图片
   router.post("/upload/goodsimage", Upload.single('files'), Goods.uploadGoodsImage)
